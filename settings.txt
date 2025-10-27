@@ -1,0 +1,31 @@
+[DEFAULT]
+
+# location of input_dir
+input_dir = /Path/to/audio
+# output_dir will be set to "input_dir/wav" in transcribe_and_count.py
+# transcript_directory will be set to "input_dir/wav" in ai_summarize2txt.py
+
+# location of whisper.cpp
+whisper_cpp = /Path/to/whisper-cli
+
+# number of threads to use during computation
+# 6 works well on Apple M1 and M2
+threads = 6
+
+# location of model for whisper.cpp
+# the medium english model seems like a good compromise between speed and accuracy
+model = /Path/to/model/ggml-medium.en.bin
+
+# model to use for AI summary
+ai_model = 'meta-llama-3.1-8b-instruct'
+
+# inference parameters for AI summary
+# temperature relates to how "creative" the model will respond, lower number makes the responses more consistent, higher numbers more varied
+temperature = 0.5
+# set max_tokens so that the response length has no limit
+max_tokens = -1
+
+# prompts for AI summary
+system_instruction = "You are a teacher for English language learners. Follow the users instructions. Respond using simple language that is easy to understand for an English language learner."
+user_prompt = "I am a student learning English. I am including the text from a recent 4-3-2 fluency task that I did. This text is from the final 2 minute response. The topic of the speech was sleep and sleep habits. Can you provide suggestions to help me talk for more time? Just provide suggestions, do not rewrite the speech for me. Here is the text of my speech:"
+

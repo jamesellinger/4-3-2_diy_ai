@@ -1,1 +1,7 @@
+# Virtual environment
+/venv/
+/env/
+
+
+# MacOS custom attributes file
 .DS_Store
