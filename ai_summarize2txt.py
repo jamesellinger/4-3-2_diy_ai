@@ -68,7 +68,7 @@ def batch_process_transcripts(model, transcript_dir, output_json, output_txt_dir
                 transcript_text = file.read()
             
             print(f"Processing: {filename}")
-            summary = summarize_transcript(model, transcript_text, system_instruction, user_prompt, temperature, max_tokens, stream)
+            summary = summarize_transcript(transcript_text, system_instruction, model, user_prompt, temperature, max_tokens, stream)
             summaries[filename] = summary
             
             # Write individual summary .txt file
