@@ -17,6 +17,8 @@ threads = 6
 model = /Path/to/model/ggml-medium.en.bin
 
 # model to use for AI summary
+# gemma-3-4b-it is comparable in speed with meta-llama-3.1-8b-instruct
+# gemma-3-12b-it seems to give more detailed responses, but responses are slower
 ai_model = 'meta-llama-3.1-8b-instruct'
 
 # inference parameters for AI summary
