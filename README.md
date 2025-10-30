@@ -4,6 +4,8 @@ This repository represents the instructions for a project I presented at the JAL
 
 **Project Title**: DIY approach for an AI-based toolchain to provide feedback on a 4/3/2/fluency activity
 
+For more details about the project itself please check ```JALT 2025 Poster.pdf```.
+
 The main aim was to develop a custom toolchain for use on a consumer-grade PC that:
 
 1. uses open-source tools to generate transcripts of student speeches from a 4/3/2 fluency activity
@@ -116,7 +118,7 @@ Change directory
 ```
 cd 4-3-2_diy_ai
 ```
-### Create a Python environment
+Create a Python environment
 
 ```
 python -m venv env
@@ -124,20 +126,20 @@ python -m venv env
 
 or python3 depending on your system setup
 
-### Activate the environment
+Activate the environment
 
 ```
 source env/bin/activate
 ```
 
-### Install packages via pip
+Install packages via pip
 ```
 pip install -r requirements.txt
 ```
 
 # 4. Running the tool
 
-The environment will be active if you are running just after "installing", otherwise please activate it again
+The environment will be active if you are running just after "installing", otherwise please activate it again.
 
 ```
 cd folder-where-you-downloaded 4-3-2_diy_ai
@@ -147,7 +149,7 @@ cd folder-where-you-downloaded 4-3-2_diy_ai
 source env/bin/activate
 ```
 
-Edit ```settings.txt``` and make sure that following parameters point to the proper locations (each parameters detail is explained in ```settings.txt```):
+Edit ```settings.txt``` and make sure that following parameters point to the proper locations (each parameter's detail is explained in ```settings.txt```):
 
 ```input_dir```, ```whisper.cpp```, ```model```, and ```ai_model```
 
@@ -157,8 +159,10 @@ Edit the following parameters to make sure the point-by-point feedback is genera
 
 ### Transcription and word count
 
-make sure that you are running this from the activated environment
+make sure that you are running this from the activated environment:
 
 ```
 python transcribe_and_count.py
 ```
+
+A new directory called ```wav``` will be created in ```input_dir```. In ```wav``` you will find .txt files that contain the transcribed speeches. A file named ```wavtranscribed_output.csv``` will be created in ```input_dir```, this contains a summary for each speech including: duration in seconds, total word count, and words per minute. 
