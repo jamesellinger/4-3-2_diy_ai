@@ -35,3 +35,50 @@ Disclaimer: I am not a professional programmer (indeed some of the code was edit
 **ffmpeg**: Used to convert student audio files into WAV format as required by whisper.cpp. Install via Homebrew.
 
 [LM Studio](https://lmstudio.ai): Used to run an LLM locally to provide point-by-point feedback on a student's speech. *LM Studio is not open-source and I am considering switching to Ollama*.
+
+# 1. Setup whisper.cpp and build whisper-cli
+
+GitHub repository for whisper.cpp: https://github.com/ggml-org/whisper.cpp
+
+Instructions below are based on the instructions found at the repository. 
+
+Clone the whisper.cpp repository:
+
+```
+git clone https://github.com/ggml-org/whisper.cpp.git
+```
+
+Navigate into the directory:
+
+```
+cd whisper.cpp
+```
+
+Download medium size English model, unquantized, in ggml format:
+
+```
+sh ./models/download-ggml-model.sh medium.en
+```
+
+Build the whisper-cli:
+
+```
+cmake -B build
+cmake --build build -j --config Release
+```
+
+This should result in creation of ```whisper-cli```, which will be used for speech-to-text.
+
+```whisper-cli``` can be found within the directory where you cloned the repository, for example:
+
+```
+~/Desktop/whisper.cpp/build/bin/whisper-cli
+```
+
+The medium size English model downloaded a few steps ago can similalry be found within the directory where you cloned the repository, for example:
+
+```
+~/Desktop/whisper.cpp/models/ggml-medium.en.bin
+```
+
+I think that ```whisper-cli``` and ```ggml-medium.en.bin``` can be moved to other locations, the important point is to correctly set the values for ```whisper_cpp``` and ```model``` in ```settings.txt``` as described later.
