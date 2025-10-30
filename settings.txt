@@ -21,7 +21,7 @@ model = /Path/to/model/ggml-medium.en.bin
 # gemma-3-12b-it seems to give more detailed responses, but responses are slower
 ai_model = 'meta-llama-3.1-8b-instruct'
 
-# inference parameters for AI summary
+# inference parameters for AI feedback
 # temperature relates to how "creative" the model will respond, lower number makes the responses more consistent, higher numbers more varied
 temperature = 0.5
 # set max_tokens so that the response length has no limit
