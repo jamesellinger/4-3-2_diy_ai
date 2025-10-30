@@ -7,7 +7,7 @@ import requests
 #### This section contains the functions that send the text data to LM Studio 
 ########################################################################################################
 
-def summarize_transcript(transcript_text, system_instruction, model, user_prompt, temperature, max_tokens, stream):
+def transcript_feedback(transcript_text, system_instruction, model, user_prompt, temperature, max_tokens, stream):
     """
     Sends the transcript text to LM Studio's chat completions endpoint for summarization.
     
@@ -20,7 +20,7 @@ def summarize_transcript(transcript_text, system_instruction, model, user_prompt
         stream (bool): Whether to stream the output.
     
     Returns:
-        str: The summary returned by LM Studio.
+        str: The feedback returned by LM Studio.
     """
     api_url = "http://localhost:1234/v1/chat/completions"  # Update if necessary
     
@@ -45,20 +45,20 @@ def summarize_transcript(transcript_text, system_instruction, model, user_prompt
         data = response.json()
         
         # Adjust parsing based on the response structure
-        summary = data["choices"][0]["message"]["content"]
-        return summary
+        feedback = data["choices"][0]["message"]["content"]
+        return feedback
     except Exception as e:
-        print(f"Error summarizing transcript: {e}")
-        return "Error summarizing transcript."
+        print(f"Error providing feedback: {e}")
+        return "Error providing feedback."
 
 def batch_process_transcripts(model, transcript_dir, output_json, output_txt_dir, system_instruction, user_prompt, temperature, max_tokens, stream):
     """
     Processes all .txt files in the transcript_dir, sends them to LM Studio for summarization,
-    saves the results in a JSON file, and writes individual summary .txt files.
+    saves the results in a JSON file, and writes individual feedback .txt files.
     """
-    summaries = {}
+    feedback_all = {}
 
-    # Ensure the directory for summary txt files exists
+    # Ensure the directory for feedback txt files exists
     os.makedirs(output_txt_dir, exist_ok=True)
     
     for filename in os.listdir(transcript_dir):
@@ -68,21 +68,21 @@ def batch_process_transcripts(model, transcript_dir, output_json, output_txt_dir
                 transcript_text = file.read()
             
             print(f"Processing: {filename}")
-            summary = summarize_transcript(transcript_text, system_instruction, model, user_prompt, temperature, max_tokens, stream)
-            summaries[filename] = summary
+            feedback = transcript_feedback(transcript_text, system_instruction, model, user_prompt, temperature, max_tokens, stream)
+            feedback_all[filename] = feedback
             
-            # Write individual summary .txt file
-            summary_filename = os.path.splitext(filename)[0] + "_summary.txt"
-            summary_file_path = os.path.join(output_txt_dir, summary_filename)
-            with open(summary_file_path, 'w', encoding='utf-8') as summary_file:
-                summary_file.write(summary)
+            # Write individual feedback .txt file
+            feedback_filename = os.path.splitext(filename)[0] + "_feedback.txt"
+            feedback_file_path = os.path.join(output_txt_dir, feedback_filename)
+            with open(feedback_file_path, 'w', encoding='utf-8') as feedback_file:
+                feedback_file.write(feedback)
     
-    # Write the summaries dictionary to a JSON file
+    # Write the feedback dictionary to a JSON file
     with open(output_json, 'w', encoding='utf-8') as json_file:
-        json.dump(summaries, json_file, indent=4)
+        json.dump(feedback_all, json_file, indent=4)
     
     print(f"Summaries saved to {output_json}")
-    print(f"Individual summary text files saved to {output_txt_dir}")
+    print(f"Individual feedback text files saved to {output_txt_dir}")
 
 #----------------------------------------#
 ##### The main code starts here ##########
@@ -104,18 +104,16 @@ config.read(config_file_path)
 # Location of transcripts .txt files created by transcibe_and_count.py
 input_dir = config.get('DEFAULT', 'input_dir')
 
-# Set directory for output of summary text files
+# Set directory for output of feedback text files
 transcript_directory = os.path.join(input_dir,"wav")
 
-# Directory to save individual summary .txt files
-output_txt_directory = os.path.join(input_dir,"summary_texts")
-#output_txt_directory = "summary_texts"
+# Directory to save individual feedback .txt files
+output_txt_directory = os.path.join(input_dir,"feedback_texts")
 
-# JSON file to save all summaries
-output_json_file = os.path.join(input_dir,"summary_texts","summaries.json")
-#output_json_file = "summaries.json"
+# JSON file to save all feedback_all
+output_json_file = os.path.join(input_dir,"feedback_texts","feedback_all.json")
 
-# Set AI model for summary
+# Set AI model for feedback
 ai_model = config.get('DEFAULT', 'ai_model')
 
 # System instruction for the LM Studio model.

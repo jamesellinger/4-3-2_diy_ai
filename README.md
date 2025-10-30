@@ -149,7 +149,7 @@ cd folder-where-you-downloaded 4-3-2_diy_ai
 source env/bin/activate
 ```
 
-Edit ```settings.txt``` and make sure that following parameters point to the proper locations (each parameter's detail is explained in ```settings.txt```):
+Edit ```settings.txt``` and make sure the following parameters point to the proper locations (each parameter's detail is explained in ```settings.txt```):
 
 ```input_dir```, ```whisper.cpp```, ```model```, and ```ai_model```
 
@@ -165,4 +165,13 @@ make sure that you are running this from the activated environment:
 python transcribe_and_count.py
 ```
 
-A new directory called ```wav``` will be created in ```input_dir```. In ```wav``` you will find .txt files that contain the transcribed speeches. A file named ```wavtranscribed_output.csv``` will be created in ```input_dir```, this contains a summary for each speech including: duration in seconds, total word count, and words per minute. 
+A new directory called ```wav``` will be created in ```input_dir```. In ```wav``` you will find .txt files that contain the transcribed speeches. A file named ```wavtranscribed_output.csv``` will be created in ```input_dir```, this contains a summary for each speech including: duration in seconds, total word count, and words per minute.
+
+### AI feedback
+
+make sure that you are running this from the activated environment:
+
+```
+python ai_feedback2txt.py
+```
+A new directory called ```feedback_texts``` will be created in ```input_dir```. In ```feedback_texts``` you will find .txt files that contain the feedback for each speech (note: the files tend to come out formatted as Markdown).
