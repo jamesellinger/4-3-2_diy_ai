@@ -97,6 +97,68 @@ Download ```meta-llama-3.1-8b-instruct```
 
 The value for ```ai_model``` in ```settings.txt``` will be set to this, as described later.
 
+The ```temperature``` value for the model is set in ```settings.txt```.
+
 I also found that ```gemma-3-4b-it``` to be decent choice for speed, and ```gemma-3-12b-it``` for giving more detailed feedback, but at the cost of slower performance.
 
 LM Studio needs to be run in server mode before running the Python script described below: [https://lmstudio.ai/docs/developer/core/server](https://lmstudio.ai/docs/developer/core/server)
+
+# 3. Downloading scripts and setting up Python to run the tool
+
+Clone the repository
+
+```
+git clone https://github.com/jamesellinger/4-3-2_diy_ai.git
+```
+
+Change directory
+
+```
+cd 4-3-2_diy_ai
+```
+### Create a Python environment
+
+```
+python -m venv env
+```
+
+or python3 depending on your system setup
+
+### Activate the environment
+
+```
+source env/bin/activate
+```
+
+### Install packages via pip
+```
+pip install -r requirements.txt
+```
+
+# 4. Running the tool
+
+The environment will be active if you are running just after "installing", otherwise please activate it again
+
+```
+cd folder-where-you-downloaded 4-3-2_diy_ai
+```
+
+```
+source env/bin/activate
+```
+
+Edit ```settings.txt``` and make sure that following parameters point to the proper locations (each parameters detail is explained in ```settings.txt```):
+
+```input_dir```, ```whisper.cpp```, ```model```, and ```ai_model```
+
+Edit the following parameters to make sure the point-by-point feedback is generated as you desire:
+
+```system_instruction```, and ```user_prompt```
+
+### Transcription and word count
+
+make sure that you are running this from the activated environment
+
+```
+python transcribe_and_count.py
+```
