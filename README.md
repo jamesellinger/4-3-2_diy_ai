@@ -82,3 +82,21 @@ The medium size English model downloaded a few steps ago can similalry be found 
 ```
 
 I think that ```whisper-cli``` and ```ggml-medium.en.bin``` can be moved to other locations, the important point is to correctly set the values for ```whisper_cpp``` and ```model``` in ```settings.txt``` as described later.
+
+# 2. Install and setup LM Studio
+
+**LM Studio is only necessary if you want the point-by-point feedback. If you don't intend to use that feature then you can skip this section.**
+
+Download from: [https://lmstudio.ai/download](https://lmstudio.ai/download)
+
+When you run LM Studio for the first time it will walk you through the basic features.
+
+Instructions for downloading a model: [https://lmstudio.ai/docs/app/basics/download-model](https://lmstudio.ai/docs/app/basics/download-model)
+
+Download ```meta-llama-3.1-8b-instruct```
+
+The value for ```ai_model``` in ```settings.txt``` will be set to this, as described later.
+
+I also found that ```gemma-3-4b-it``` to be decent choice for speed, and ```gemma-3-12b-it``` for giving more detailed feedback, but at the cost of slower performance.
+
+LM Studio needs to be run in server mode before running the Python script described below: [https://lmstudio.ai/docs/developer/core/server](https://lmstudio.ai/docs/developer/core/server)
