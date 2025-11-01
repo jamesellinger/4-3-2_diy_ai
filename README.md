@@ -83,7 +83,7 @@ The medium size English model downloaded a few steps ago can similalry be found 
 ~/Desktop/whisper.cpp/models/ggml-medium.en.bin
 ```
 
-I think that ```whisper-cli``` and ```ggml-medium.en.bin``` can be moved to other locations, the important point is to correctly set the values for ```whisper_cpp``` and ```model``` in ```settings.txt``` as described later.
+**Note:** ```whisper-cli``` and ```ggml-medium.en.bin``` can be moved to other locations, the important point is to correctly set the values for ```whisper_cpp``` and ```model``` in ```settings.txt``` as described later.
 
 # 2. Install and setup LM Studio
 
@@ -101,7 +101,7 @@ The value for ```ai_model``` in ```settings.txt``` will be set to this, as descr
 
 The ```temperature``` value for the model is set in ```settings.txt```.
 
-I also found that ```gemma-3-4b-it``` to be decent choice for speed, and ```gemma-3-12b-it``` for giving more detailed feedback, but at the cost of slower performance.
+I found that ```gemma-3-4b-it``` is also a decent choice for speed, and ```gemma-3-12b-it``` for giving more detailed feedback, but at the cost of slower performance.
 
 LM Studio needs to be run in server mode before running the Python script described below: [https://lmstudio.ai/docs/developer/core/server](https://lmstudio.ai/docs/developer/core/server)
 
@@ -169,7 +169,7 @@ A new directory called ```wav``` will be created in ```input_dir```. In ```wav``
 
 ### AI feedback
 
-make sure that you are running this from the activated environment:
+make sure that you are running this from the activated environment and that LM Studio is running in server mode with the correct model loaded:
 
 ```
 python ai_feedback2txt.py
