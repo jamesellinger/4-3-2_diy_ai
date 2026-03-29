@@ -74,6 +74,9 @@ def process_files(input_dir, output_dir, whisper_cpp_loc, num_threads, model_nam
         # Create the output filename with .wav extension
         output_file = os.path.join(output_dir, base + ".wav")
 
+        # Create the base filename for .txt output file
+        txt_base = os.path.join(output_dir,base)
+
         # Check if the file is a valid audio file using ffprobe
         try:
             ffprobe_cmd = ["ffprobe", "-v", "error", "-show_streams", "-select_streams", "a", input_file]
@@ -95,11 +98,11 @@ def process_files(input_dir, output_dir, whisper_cpp_loc, num_threads, model_nam
             audio_duration = frames / float(rate)
 
         # Transcribe, use output_file since it's the variable that holds the name of .wav to be transcribed
-        ffmpeg_cmd = [whisper_cpp_loc, "-t", num_threads, "-m", model_name, output_file, "-otxt"]
-        subprocess.run(ffmpeg_cmd, check=True)
+        whisper_cmd = [whisper_cpp_loc, "-t", num_threads, "-m", model_name, output_file, "-otxt", "-of", txt_base]
+        subprocess.run(whisper_cmd, check=True)
 
         # Set the text file's filename
-        text_file = output_file + ".txt"
+        text_file = txt_base + ".txt"
         # Get the word count and calculate words per minute
         num_words = count_words(text_file)
         words_per_min = num_words/(audio_duration/60)
@@ -166,7 +169,7 @@ else:
 config = configparser.ConfigParser()
 
 # Read the settings from the settings.txt file located in the same directory as this script
-config_file_path = os.path.join(os.path.dirname(__file__), 'settings.txt')
+config_file_path = os.path.join(os.path.dirname(__file__), 'settings.ini')
 if not os.path.exists(config_file_path):
     print(f"Error: Configuration file '{config_file_path}' does not exist.")
     exit(1)
