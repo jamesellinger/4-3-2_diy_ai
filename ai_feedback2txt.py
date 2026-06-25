@@ -91,8 +91,8 @@ def batch_process_transcripts(model, transcript_dir, output_json, output_txt_dir
 # Create a ConfigParser object
 config = configparser.ConfigParser()
 
-# Read the settings from the settings.txt file located in the same directory as this script
-config_file_path = os.path.join(os.path.dirname(__file__), 'settings.txt')
+# Read the settings from the settings.ini file located in the same directory as this script
+config_file_path = os.path.join(os.path.dirname(__file__), 'settings.ini')
 if not os.path.exists(config_file_path):
     print(f"Error: Configuration file '{config_file_path}' does not exist.")
     exit(1)
